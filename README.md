@@ -2,6 +2,11 @@
 
 This session will show you how to get started with Azure Container Service (ACS), one of the most powerful ways of running containerized applications in Azure. You'll learn how to set up a Kubernetes cluster using the Azure Cloud Shell and deploy a highly available and scalable web application with only a few commands. We'll then show how easy it is to scale up, reconfigure or update your application without any incurring any downtime to users.
 
+## Content
+
+- [Part 1 - Opening a Cloud Shell](#Part-1---Opening-a-Cloud-Shell)
+- [Part 2 - Create an Azure Container Service](#Part-2---Create-the-Azure-Container-Service)
+
 ## Part 1 - Opening a Cloud Shell
 
 Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work. Linux users can opt for a Bash experience, while Windows users can opt for PowerShell.
@@ -32,7 +37,7 @@ Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure
 
    ![Select Bash Cloud Shell](images/selectbashcloudshell.png "Select Bash Cloud Shell")
 
-## Part 2 - Create the Azure Container Service (ACS)
+## Part 2 - Create an Azure Container Service
 
 1. Run this command in CloudShell, but change 'myacs' to the name that your container
    service will be created as. Thist must be unique.
