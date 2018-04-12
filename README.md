@@ -4,8 +4,8 @@ This session will show you how to get started with Azure Container Service (ACS)
 
 ## Content
 
-- [Part 1 - Opening a Cloud Shell](#Part-1---Opening-a-Cloud-Shell)
-- [Part 2 - Create an Azure Container Service](#Part-2---Create-the-Azure-Container-Service)
+- [Part 1 - Opening a Cloud Shell](#part-1---opening-a-cloud-shell)
+- [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service)
 
 ## Part 1 - Opening a Cloud Shell
 
@@ -39,21 +39,34 @@ Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure
 
 ## Part 2 - Create an Azure Container Service
 
-1. Run this command in CloudShell, but change 'myacs' to the name that your container
-   service will be created as. Thist must be unique.
+We will now use the Cloud Shell to create a new Azure Container Service (ACS) Kubernetes cluster that will be used to host our containers.
 
-```powershell
-name="myacs"
-```
+Any ACS service you create will be publically accessible on the internet.
+A URL will be automatically assigned to your ACS service that you will be
+able to use to access your containers and manage your cluster.
 
-2. Run this command in CloudShell to create a resource group:
+1. Come up with a **name** for your ACS service. The name must contain only letters and numbers and be globally unique because it will be used for the public URLs of your Kubernetes cluster.
 
-```powershell
-az group create --name $name-rgp --location EastUS
-```
+1. Run this command in Cloud Shell, but change 'dsracs' to the **name** that you specified above.
 
-3. Run this command in CloudShell to create a kubernetes cluster:
+   ```bash
+   name="dansacs"
+   ```
 
-```bash
-az acs create --name $name --resource-group $name-rgp --location EastUS --dns-prefix $name --orchestrator-type kubernetes --generate-ssh-keys --agent-count 2
-```
+1. Run this command your Cloud Shell to create a resource group:
+
+   ```bash
+   az group create --name $name-rgp --location EastUS
+   ```
+
+1. Run this command in Cloud Shell to create a Kubernetes cluster:
+
+   ```bash
+   az acs create --name $name --resource-group $name-rgp --location EastUS --dns-prefix $name --orchestrator-type kubernetes --generate-ssh-keys --agent-count 2
+   ```
+
+The ACS Kubernetes cluster will be created in your Azure subscription.
+This will take several minutes to complete creation of the ACS.
+
+![Create ACS](images/acscreate.png "Create ACS")
+
