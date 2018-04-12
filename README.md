@@ -6,6 +6,7 @@ This session will show you how to get started with Azure Container Service (ACS)
 
 - [Part 1 - Opening a Cloud Shell](#part-1---opening-a-cloud-shell)
 - [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service)
+- [Part 3 - Run Your First Container](#part-3---run-your-first-container)
 
 ## Part 1 - Opening a Cloud Shell
 
@@ -66,7 +67,17 @@ able to use to access your containers and manage your cluster.
    ```
 
 The ACS Kubernetes cluster will be created in your Azure subscription.
-This will take several minutes to complete creation of the ACS.
+This will take at least 10 minutes to complete creation of the ACS.
 
 ![Create ACS](images/acscreate.png "Create ACS")
 
+Once the Kubernetes cluster has been created we can continue with the workshop.
+
+In the meantime, we'll talk about what containers are and how they're used as well as talking about the components that make up a Kubernetes cluster.
+
+## Part 3 - Run Your First Container
+
+Once your ACS has been created you will be able to review the resources that have
+been created:
+
+![ACS Resources](images/acsresources.png "ACS Resources")
