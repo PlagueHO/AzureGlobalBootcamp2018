@@ -6,7 +6,9 @@ This session will show you how to get started with Azure Container Service (ACS)
 
 - [Part 1 - Opening a Cloud Shell](#part-1---opening-a-cloud-shell)
 - [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service)
-- [Part 3 - Run Your First Container](#part-3---run-your-first-container)
+- [Part 3 - Manage Cluster with Cloud Shell](#part-3---manage-cluster-with-cloud-shell)
+
+- [Part X - Delete the Cluster](#part-x---delete-the-cluster)
 
 ## Part 1 - Opening a Cloud Shell
 
@@ -75,9 +77,70 @@ Once the Kubernetes cluster has been created we can continue with the workshop.
 
 In the meantime, we'll talk about what containers are and how they're used as well as talking about the components that make up a Kubernetes cluster.
 
-## Part 3 - Run Your First Container
-
 Once your ACS has been created you will be able to review the resources that have
 been created:
 
 ![ACS Resources](images/acsresources.png "ACS Resources")
+
+## Part 3 - Manage Cluster with Cloud Shell
+
+Now that our cluster is deployed we need to configure Cloud Shell to be able
+to manage it.
+
+Kubernetes clusters always expose a management endpoint that the Kubernetes tools
+and other software can use to control and monitor the cluster with. The FQDN
+for this endpoint can be located by selecting the ACS cluster resource in the
+resource group that we deployed to contain our cluster:
+
+![ACS Management FQDN](images/acsresourcemanagementfqdn.png "ACS Management FQDN")
+
+We can then configure the `kubectl` tool to manage this cluster. We could do this
+manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for us.
+
+1. Configure your Cloud Shell to manage your ACS by running the command:
+
+   ```bash
+   az acs kubernetes get-credentials --resource-group $name-rgp --name $name
+   ```
+
+   ![Configure Cloud Shell to manage ACS](images/configurecloudshellacs.png "Configure Cloud Shell to manage ACS")
+
+2. Validate our cluster is running by running the command:
+
+   ```bash
+   kubectl cluster-info
+   ```
+
+   ![Get Cluster Info](images/acsclusterinfo.png "Get Cluster Info")
+
+3. Check all nodes in the cluster by running the command:
+
+   ```bash
+   kubectl get nodes
+   ```
+
+## Step X - Delete the Cluster
+
+> This step is optional and only needs to be done if you're finished with your
+> cluster and want to get rid of it to save some Azure credit.
+
+_Note: If you just want to pause running your cluster, you can actually go in and
+shut each of the cluster VMs down. This will reduce some compute costs but won't
+completely delete the cluster. You will still pay for some components._
+
+1. Delete the cluster by running the following command in the Azure Cloud Shell:
+
+   ```bash
+   az acs delete --resource-group $name-rgp --name $name --yes
+   ```
+
+2. Delete the resource group by running this command in the Azure Cloud Shell:
+
+   ```bash
+   az group delete --name $name-rgp --yes
+   ```
+
+![Delete Cluster](images/acsdelete.png "Delete Cluster")
+
+Everything will now be cleaned up and deleted and you won't be paying to run
+an ACS Kubernetes cluster.
