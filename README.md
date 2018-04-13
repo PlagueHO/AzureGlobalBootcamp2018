@@ -4,11 +4,12 @@ This session will show you how to get started with Azure Container Service (ACS)
 
 ## Content
 
-- [Part 1 - Opening a Cloud Shell](#part-1---opening-a-cloud-shell)
-- [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service)
-- [Part 3 - Manage Cluster with Cloud Shell](#part-3---manage-cluster-with-cloud-shell)
+- [Part 1 - Opening a Cloud Shell](#part-1---opening-a-cloud-shell) - 5 min
+- [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service) - 5 min
+- [Introduction to Containers, Docker and Kubernetes](#introduction-to-containers,-docker-and-kubernetes) - 30 min
+- [Part 3 - Manage Cluster with Cloud Shell](#part-3---manage-cluster-with-cloud-shell) - 5 min
 
-- [Part X - Delete the Cluster](#part-x---delete-the-cluster)
+- [Part X - Delete the Cluster](#part-x---delete-the-cluster) - 5 min
 
 ## Part 1 - Opening a Cloud Shell
 
@@ -73,16 +74,17 @@ This will take at least 10 minutes to complete creation of the ACS.
 
 ![Create ACS](images/acscreate.png "Create ACS")
 
+## Introduction to Containers, Docker and Kubernetes
+
 Once the Kubernetes cluster has been created we can continue with the workshop.
 
 In the meantime, we'll talk about what containers are and how they're used as well as talking about the components that make up a Kubernetes cluster.
 
-Once your ACS has been created you will be able to review the resources that have
-been created:
+## Part 3 - Manage Cluster with Cloud Shell
+
+Once your ACS has been created you will be able to review the resources that have been created:
 
 ![ACS Resources](images/acsresources.png "ACS Resources")
-
-## Part 3 - Manage Cluster with Cloud Shell
 
 Now that our cluster is deployed we need to configure Cloud Shell to be able
 to manage it.
