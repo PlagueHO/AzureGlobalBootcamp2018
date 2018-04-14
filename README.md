@@ -8,6 +8,8 @@ This session will show you how to get started with Azure Container Service (ACS)
 - [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service) - 5 min
 - [Introduction to Containers, Docker and Kubernetes](#introduction-to-containers,-docker-and-kubernetes) - 30 min
 - [Part 3 - Manage Cluster with Cloud Shell](#part-3---manage-cluster-with-cloud-shell) - 5 min
+- [Part 4 - Deploy your First Application](#part-4---deploy-your-first-application) - 10 min
+- [Part 5 - Scale out your First Application](#part-5---scale-out-your-first-application) - 10 min
 
 - [Part X - Delete the Cluster](#part-x---delete-the-cluster) - 5 min
 
@@ -107,7 +109,7 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
 
    ![Configure Cloud Shell to manage ACS](images/configurecloudshellacs.png "Configure Cloud Shell to manage ACS")
 
-2. Validate our cluster is running by running the command:
+1. Validate our cluster is running by running the command:
 
    ```bash
    kubectl cluster-info
@@ -115,11 +117,89 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
 
    ![Get Cluster Info](images/acsclusterinfo.png "Get Cluster Info")
 
-3. Check all nodes in the cluster by running the command:
+1. Check all nodes in the cluster by running the command:
 
    ```bash
    kubectl get nodes
    ```
+
+## Part 4 - Deploy your First Application
+
+1. Download a Kubernetes manifest file for the demo app to your Cloud Shell:
+
+   ```bash
+   wget https://raw.githubusercontent.com/PlagueHO/AzureGlobalBootcamp2018/master/src/azure-vote.yml
+   ```
+
+1. Create the application by telling Kubernetes to create the application
+   using the Manifest file by running this command in the Cloud Shell:
+
+   ```bash
+   kubectl create -f azure-vote.yml
+   ```
+
+1. Wait for the Kubernetes application to be started and become accessible by
+   running this command in the Cloud Shell:
+
+   ```bash
+   kubectl get service azure-vote-front --watch
+   ```
+
+   _This may take a few minutes for the application images to be downloaded
+   to the cluster and the application to be started up. Once the external IP
+   address appears then the application is up and ready for us to use:_
+
+   ![Wait for Kubernetes Demo App](images/waitforkubernetesdemoapp.png "Wait for Kubernetes Demo App")
+
+1. Copy the EXTERNAL-IP address of YOUR application into the browser and
+   your app should be shown:
+
+   ![Your First Kubernetes App](images/firstdemoapplication.png "Your First Kubernetes App")
+
+   Congratulations! You are now running your first Kubernetes application.
+
+   ![Congratulations](images/congratulations.png "Congratulations")
+
+1. Now let us look at the containers deployed on the Kubernetes cluster by
+   running this command in Cloud Shell:
+
+   ```bash
+   kubectl get deployments
+   ```
+
+   This shows the applications deployed to the cluster and the number of
+   replicas of each container:
+
+   ![First Demo Deployments](images/firstdemodeployments.png "First Demo Deployments")
+
+1. We can get a list of all the services running on the cluster by executing
+   this command in Cloud Shell:
+
+   ```bash
+   kubectl get services
+   ```
+
+   ![First Demo Services](images/firstdemoservices.png "First Demo Services")
+
+1. Finally, lets find out which nodes the containers are running on by
+   executing this command in Cloud Shell:
+
+   ```bash
+   kubectl get pods -o wide
+   ```
+
+   ![First Demo Pods](images/firstdemopods.png "First Demo Pods")
+
+   _This command enables us to see which containers are running on each
+   Kubernetes agent. Normally we wouldn't worry to much about this, but we
+   want to watch what happens **later** when we shut down one of our agents._
+
+## Part 5 - Scale out your First Application
+
+One of the awesome features of Kubernetes and containers in general is how
+easy it is to scale out our Pods so that more replicas of a container run
+in it.
+
 
 ## Step X - Delete the Cluster
 
