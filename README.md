@@ -6,6 +6,7 @@ This session will show you how to get started with Azure Container Service (ACS)
 
 - [What You Will Need](#what-you-will-need)
 - [Prerequisite Knowledge](#prerequisite-knowledge)
+- [What You Will Learn](#what-you-will-learn)
 - [Part 1 - Opening a Cloud Shell](#part-1---opening-a-cloud-shell) - 5 min
 - [Part 2 - Create an Azure Container Service](#part-2---create-the-azure-container-service) - 5 min
 - [Introduction to Containers, Docker and Kubernetes](#introduction-to-containers,-docker-and-kubernetes) - 30 min
@@ -14,7 +15,7 @@ This session will show you how to get started with Azure Container Service (ACS)
 - [Part 5 - Scale out your First Application](#part-5---scale-out-your-first-application) - 10 min
 - [Part 6 - Editing a Deployed Application](#part-6---editing-a-deployed-application) - 15 min
 - [Part 7 - When Disaster Strikes](#part-7---when-disaster-strikes) - 5 min
-- [Part 8 - Delete the Cluster](#part-x---delete-the-cluster) - 5 min
+- [Part 8 - Delete the Cluster](#part-8---delete-the-cluster) - 5 min
 
 Estimated workshop time: 90 min
 
@@ -22,7 +23,7 @@ Estimated workshop time: 90 min
 
 To complete this workshop you'll need the following:
 
-- A Microsoft Azure Account.
+- A **Microsoft Azure Account**.
   You can sign up for a free trial [here](https://azure.microsoft.com/en-us/free/).
 - A computer running **Windows**, **OSX** or **Linux** (desktop OS) with an **up-to-date version** of either Chrome, Firefox, Edge or Opera.
 
@@ -31,6 +32,14 @@ To complete this workshop you'll need the following:
 - Basic knowledge of Compute and Virutalization (Hyper-V, VMWare, Cloud compute)
 - Basic knowledge of text editors (Notepad++ or Vim or VS Code)
 - Basic knowledge of using text based consoles (Bash, Cmd, PowerShell)
+
+## What You Will Learn
+
+You'll learn the basics in the following skills:
+
+- Create and use the Azure Cloud Shell.
+- Use the Azure CLI (`az`) to create and delete an Azure Container Service.
+- Use the Kubernetes tools (`kubectl`) to deploy and manage highly available container applications.
 
 ## Part 1 - Opening a Cloud Shell
 
