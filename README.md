@@ -85,11 +85,15 @@ able to use to access your containers and manage your cluster.
 
 1. Come up with a **name** for your ACS service. The name must contain only letters and numbers and be globally unique because it will be used for the public URLs of your Kubernetes cluster.
 
-1. Run this command in Cloud Shell, but change 'dsracs' to the **name** that you specified above.
+1. Run this command in Cloud Shell, but change `dsracs` to the **name** that you specified above.
 
    ```bash
    name="dansacs"
    ```
+
+   **Important: Please note this value and command down, because if your Cloud Shell closes
+   the value will be removed and you'll have to define it in your Cloud Shell session again
+   by re-running this command.**
 
 1. Run this command your Cloud Shell to create a resource group:
 
@@ -282,7 +286,7 @@ at all. This is the power of Kubernetes.
 1. To edit a _Manifest_ execute the following command in Cloud Shell:
 
    ```bash
-   kubectl edit edit -f azure-vote.yml
+   kubectl edit -f azure-vote.yml
    ```
 
    ![First Demo Edit Deployment](images/firstdemoeditdeployment.png "First Demo Edit Deployment")
