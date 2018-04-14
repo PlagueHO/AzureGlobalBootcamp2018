@@ -10,8 +10,11 @@ This session will show you how to get started with Azure Container Service (ACS)
 - [Part 3 - Manage Cluster with Cloud Shell](#part-3---manage-cluster-with-cloud-shell) - 5 min
 - [Part 4 - Deploy your First Application](#part-4---deploy-your-first-application) - 10 min
 - [Part 5 - Scale out your First Application](#part-5---scale-out-your-first-application) - 10 min
+- [Part 6 - Editing a Deployed Application](#part-6---editing-a-deployed-application) - 15 min
+- [Part 7 - When Disaster Strikes](#part-7---when-disaster-strikes) - 5 min
+- [Part 8 - Delete the Cluster](#part-x---delete-the-cluster) - 5 min
 
-- [Part X - Delete the Cluster](#part-x---delete-the-cluster) - 5 min
+Estimated workshop time: 85 min
 
 ## Part 1 - Opening a Cloud Shell
 
@@ -164,7 +167,7 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
 
    ![Congratulations](images/congratulations.png "Congratulations")
 
-1. Now let us look at the containers deployed on the Kubernetes cluster by
+1. Now let us look at the _Deployments_ on the Kubernetes cluster by
    running this command in Cloud Shell:
 
    ```bash
@@ -172,7 +175,7 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
    ```
 
    This shows the applications deployed to the cluster and the number of
-   replicas of each container:
+   replicas of each _Pod_:
 
    ![First Demo Deployments](images/firstdemodeployments.png "First Demo Deployments")
 
@@ -185,7 +188,7 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
 
    ![First Demo Services](images/firstdemoservices.png "First Demo Services")
 
-1. Finally, lets find out which nodes the containers are running on by
+1. Finally, lets find out which nodes the _Pods_ are running on by
    executing this command in Cloud Shell:
 
    ```bash
@@ -194,15 +197,14 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
 
    ![First Demo Pods](images/firstdemopods.png "First Demo Pods")
 
-   _This command enables us to see which containers are running on each
+   _This command enables us to see which _Pods_ are running on each
    Kubernetes agent. Normally we wouldn't worry to much about this, but we
    want to watch what happens **later** when we shut down one of our agents._
 
 ## Part 5 - Scale up your First Application
 
-One of the awesome features of Kubernetes and containers in general is how
-easy it is to scale up (or down) our Pods so that more replicas of a
-container run in it.
+One of the awesome features of Kubernetes is how easy it is to scale up
+(or down) our _Pods_ so that more replicas of a container run in it.
 
 We can easily scale individual _Pods_ or configure autoscaling to let
 Kubernetes manage the scale of indivual _Pods_ based on the load.
@@ -216,7 +218,7 @@ Kubernetes manage the scale of indivual _Pods_ based on the load.
 
    ![First Demo Scaled Up](images/firstdemoscaledup.png "First Demo Scaled Up")
 
-1. Now have a look at the containers that are running on our agents
+1. Now have a look at the _Pods_ that are running on our agents
    by executing this command in Cloud Shell:
 
    ```bash
@@ -235,7 +237,7 @@ Kubernetes manage the scale of indivual _Pods_ based on the load.
 
    ![First Demo Autoscaled](images/firstdemoautoscaled.png "First Demo Autoscaled")
 
-## Part 6 - Advanced Editing of a Deployment
+## Part 6 - Editing a Deployed Application
 
 Each _Manifest_ that has been applied to a cluster is stored within the
 Cluster master as a file and can be modified to apply changes to the
@@ -312,7 +314,86 @@ at all. This is the power of Kubernetes.
 
    ![First Demo V2 Running](images/firstdemoapplicationv2.png "First Demo V2 Running")
 
-## Step X - Delete the Cluster
+## Part 7 - When Disaster Strikes
+
+So, what happens when disaster strikes and one of your Kubernetes agents
+(_Nodes_) goes down - or if you just need to take it out of the cluster to
+update it?
+
+This is where Kubernetes really shines - it will always make sure the desired
+number of replicas are running for each _Pod_ in your _Deployment_, no matter
+how many agents you have available.
+
+If a _Node_ becomes unresponsive for 5 minutes then Kubernetes will automatically
+evict it from the cluster and move all the running _Pods_ to another _Node_.
+This will keep your systems running and reliable if unexpected outages occur.
+
+If you're planning on performing maintainence on a _Nodes_ in your cluster
+then typically you'd want to _Drain_ the _Nodes_ first. This ensures there
+will be no service disruption. So let's see this in action.
+
+1. First have a look at the containers that are running on our _Nodes_
+   by executing this command in Cloud Shell:
+
+   ```bash
+   kubectl get pods -o wide
+   ```
+
+   You'll see that they're spread accross the two running _Nodes_.
+
+   ![High Availabiliy Pods](images/highavailabilitystartpods.png "High Availabiliy Pods")
+
+1. To make things a little bit easier we'll assign the name of
+   one of our _Nodes_ to a variable by running this command in
+   the Cloud Shell:
+
+   ```bash
+   nodename="k8s-agent-6a859ffc-1"
+   ```
+
+1. Now, lets _Drain_ one of the _Nodes_ by running this command in
+
+   ```bash
+   kubectl drain $nodename
+   ```
+
+   This stops new _Pods_ from being deployed to this _Node_, but
+   leaves the existing _Pods_ running on it.
+
+1. Lets simulate a complete failure of the _Node_ by shutting
+   down the VM:
+
+   Get the name of one of your _Nodes_ from the result of the
+   previous command and execute this command (changing the `--name` parameter
+   value to that of the _Node_ to stop):
+
+   ```bash
+   az vm stop --resource-group $name-rgp --name $nodename
+   ```
+
+1. It will take 5 minutes for the Kubernetes cluster to determine
+   that the _Node_ is no longer available. At this point it will
+   redeploy all the _Pods_ to the other running _Nodes_ and mark
+   the failed _Pods_ as status `Unknown`:
+
+   ![High Availabiliy Pods Unknown](images/highavailabilitypodsunknown.png "High Availabiliy Pods Unknown")
+
+1. We will now start the VM back up (changing the `--name` parameter
+   value to that of the _Node_ to start):
+
+   ```bash
+   az vm start --resource-group $name-rgp --name $nodename
+   ```
+
+1. A _Node_ that has been shutdown without removing it from the cluster
+   will result in a status of `SchedulingDisabled`. Before the Kubernetes
+   _Scheduler_ will start using it again we must _Uncordon_ the node
+
+   ```bash
+   kubectl uncordon $nodename
+   ```
+
+## Step 8 - Delete the Cluster
 
 > This step is optional and only needs to be done if you're finished with your
 > cluster and want to get rid of it to save some Azure credit.
