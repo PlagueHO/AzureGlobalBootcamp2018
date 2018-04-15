@@ -1,6 +1,11 @@
 # Containerize Your World using Azure Container Services
 
-This session will show you how to get started with Azure Container Service (ACS), one of the most powerful ways of running containerized applications in Azure. You'll learn how to set up a Kubernetes cluster using the Azure Cloud Shell and deploy a highly available and scalable web application with only a few commands. We'll then show how easy it is to scale up, reconfigure or update your application without any incurring any downtime to users.
+This session will show you how to get started with Azure Container Service (ACS),
+one of the most powerful ways of running containerized applications in Azure.
+You'll learn how to set up a Kubernetes cluster using the Azure Cloud Shell and
+deploy a highly available and scalable web application with only a few commands.
+We'll then show how easy it is to scale up, reconfigure or update your
+application without any incurring any downtime to users.
 
 ## Content
 
@@ -18,6 +23,8 @@ This session will show you how to get started with Azure Container Service (ACS)
 - [Part 8 - Cleanup After the Workshop](#part-8---cleanup-after-the-workshop) - 5 min
 
 Estimated workshop time: 90 min
+Estimated Azure credit usage: USD 3.00 (as long as you delete
+the infrastructure straight after completion of the workshop)
 
 ## What You Will Need
 
@@ -25,7 +32,8 @@ To complete this workshop you'll need the following:
 
 - A **Microsoft Azure Account**.
   You can sign up for a free trial [here](https://azure.microsoft.com/en-us/free/).
-- A computer running **Windows**, **OSX** or **Linux** (desktop OS) with an **up-to-date version** of either Chrome, Firefox, Edge or Opera.
+- A computer running **Windows**, **OSX** or **Linux** (desktop OS)
+  with an **up-to-date version** of either Chrome, Firefox, Edge or Opera.
 
 ## Prerequisite Knowledge
 
@@ -39,11 +47,15 @@ You'll learn the basics in the following skills:
 
 - Create and use the Azure Cloud Shell.
 - Use the Azure CLI (`az`) to create and delete an Azure Container Service.
-- Use the Kubernetes tools (`kubectl`) to deploy and manage highly available container applications.
+- Use the Kubernetes tools (`kubectl`) to deploy and manage highly available
+  container applications.
 
 ## Part 1 - Opening a Cloud Shell
 
-Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work. Linux users can opt for a Bash experience, while Windows users can opt for PowerShell.
+Azure Cloud Shell is an interactive, browser-accessible shell for managing
+Azure resources. It provides the flexibility of choosing the shell experience
+that best suits the way you work. Linux users can opt for a Bash experience,
+while Windows users can opt for PowerShell.
 
 1. Open Cloud Shell by clicking the Cloud Shell icon:
    ![Open Cloud Shell](images/opencloudshell.png "Open Cloud Shell")
@@ -54,8 +66,10 @@ Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure
 
 1. Click **Bash (Linux)**
 
-   _When you first create a Cloud Shell a storage account will get created for you to store your settings, scripts and other files you might create. This enables you to have access to your
-   own environment no matter what device you're using._
+   _When you first create a Cloud Shell a storage account will get created
+   for you to store your settings, scripts and other files you might create. This
+   enables you to have access to your own environment no matter what device you're
+   using._
 
    ![Create Cloud Shell Storage](images/createcloudshellstorage.png "Create Cloud Shell Storage")
 
@@ -73,7 +87,8 @@ Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure
 
 ## Part 2 - Create an Azure Container Service
 
-We will now use the Cloud Shell to create a new Azure Container Service (ACS) Kubernetes cluster that will be used to host our containers.
+We will now use the Cloud Shell to create a new Azure Container Service (ACS)
+Kubernetes cluster that will be used to host our containers.
 
 Any ACS service you create will be publically accessible on the internet.
 A URL will be automatically assigned to your ACS service that you will be
@@ -83,17 +98,20 @@ able to use to access your containers and manage your cluster.
 
    [![Launch Cloud Shell](https://shell.azure.com/images/launchcloudshell.png "Launch Cloud Shell")](https://shell.azure.com)
 
-1. Come up with a **name** for your ACS service. The name must contain only letters and numbers and be globally unique because it will be used for the public URLs of your Kubernetes cluster.
+1. Come up with a **name** for your ACS service. The name must contain only
+   letters and numbers and be globally unique because it will be used for
+  the public URLs of your Kubernetes cluster.
 
-1. Run this command in Cloud Shell, but change `dsracs` to the **name** that you specified above.
+1. Run this command in Cloud Shell, but change `dsracs` to the **name** that
+   you specified above.
 
    ```bash
    name="dansacs"
    ```
 
-   **Important: Please note this value and command down, because if your Cloud Shell closes
-   the value will be removed and you'll have to define it in your Cloud Shell session again
-   by re-running this command.**
+   **Important: Please note this value and command down, because if your Cloud
+   Shell closes the value will be removed and you'll have to define it in your
+   Cloud Shell session again by re-running this command.**
 
 1. Run this command your Cloud Shell to create a resource group:
 
@@ -116,11 +134,13 @@ This will take at least 10 minutes to complete creation of the ACS.
 
 Once the Kubernetes cluster has been created we can continue with the workshop.
 
-In the meantime, we'll talk about what containers are and how they're used as well as talking about the components that make up a Kubernetes cluster.
+In the meantime, we'll talk about what containers are and how they're used as
+well as talking about the components that make up a Kubernetes cluster.
 
 ## Part 3 - Manage Cluster with Cloud Shell
 
-Once your ACS has been created you will be able to review the resources that have been created:
+Once your ACS has been created you will be able to review the resources that
+have been created:
 
 ![ACS Resources](images/acsresources.png "ACS Resources")
 
