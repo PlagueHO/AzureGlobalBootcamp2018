@@ -15,7 +15,7 @@ This session will show you how to get started with Azure Container Service (ACS)
 - [Part 5 - Scale out your First Application](#part-5---scale-out-your-first-application) - 10 min
 - [Part 6 - Editing a Deployed Application](#part-6---editing-a-deployed-application) - 15 min
 - [Part 7 - When Disaster Strikes](#part-7---when-disaster-strikes) - 5 min
-- [Part 8 - Delete the Cluster](#part-8---delete-the-cluster) - 5 min
+- [Part 8 - Cleanup After the Workshop](#part-8---cleanup-after-the-workshop) - 5 min
 
 Estimated workshop time: 90 min
 
@@ -426,7 +426,7 @@ will be no service disruption. So let's see this in action.
    kubectl uncordon $nodename
    ```
 
-## Step 8 - Delete the Cluster
+## Step 8 - Cleanup After the Workshop
 
 > This step is optional and only needs to be done if you're finished with your
 > cluster and want to get rid of it to save some Azure credit.
