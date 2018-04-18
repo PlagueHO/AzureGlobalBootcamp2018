@@ -181,14 +181,14 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
 
 ## Part 4 - Deploy your First Application
 
-1. Download a Kubernetes _Manifest_ file for the demo app to your Cloud Shell:
+1. Download a Kubernetes _Deployment_ file for the demo app to your Cloud Shell:
 
    ```bash
    wget https://raw.githubusercontent.com/PlagueHO/AzureGlobalBootcamp2018/master/src/azure-vote.yml
    ```
 
 1. Create the application by telling Kubernetes to create the _Deployments_
-   and _Services_ using the _Manifest_ file by running this command in the
+   and _Services_ using the _Deployment_ file by running this command in the
    Cloud Shell:
 
    ```bash
@@ -292,18 +292,26 @@ Kubernetes manage the scale of indivual _Pods_ based on the load.
 
 ## Part 6 - Editing a Deployed Application
 
-Each _Manifest_ that has been applied to a cluster is stored within the
-Cluster master as a file and can be modified to apply changes to the
-_Deployments_ and _Services_ in flight.
-This enables reconfiguring almost any aspect of the _Manifest_ and have
-the changes applied to the _Deployments_ and _Services_ immediately.
+Each _Deployment_ file that has been applied to a cluster is stored
+within the Cluster master as a file and can be modified to apply changes
+to the _Deployments_ and _Services_ in flight.
+This enables reconfiguring almost any aspect of the _Deployment_ file
+and have the changes applied to the _Deployments_ and _Services_ immediately.
 
 For example, if we wanted to update the container image version of the
 running containers to a new version then we could edit this file.
 So, we'll now update to V2 of our running app without any user disruption
 at all. This is the power of Kubernetes.
 
-1. To edit a _Manifest_ execute the following command in Cloud Shell:
+1. First, describe all the _Deployments_ on the cluster by running
+   this command in Cloud Shell:
+
+   ```bash
+   kubectl describe deployments
+   ```
+
+1. To edit a _Deployment_ file, execute the following command in Cloud
+   Shell:
 
    ```bash
    kubectl edit -f azure-vote.yml
