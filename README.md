@@ -213,6 +213,8 @@ and creating containers from them.
 > to pull the container images from if we had private container images we had
 > created.
 
+You can review the _Deployment_ file by [clicking here](src/azure-vote.yml).
+
 1. Download a Kubernetes _Deployment_ file for the demo app to your Cloud Shell:
 
    ```bash
