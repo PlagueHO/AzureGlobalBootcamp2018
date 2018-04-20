@@ -7,6 +7,13 @@ deploy a highly available and scalable web application with only a few commands.
 We'll then show how easy it is to scale up, reconfigure or update your
 application without any incurring any downtime to users.
 
+**Daniel Scott-Raynsford**
+
+_Continuous Delivery Practice Lead, IAG NZ_
+
+[Microsoft Cloud and Datacenter MVP](https://mvp.microsoft.com/en-us/PublicProfile/5002340?fullName=Daniel%20%20Scott-Raynsford) | [@dscottraynsford](https://twitter.com/dscottraynsford) | [Linked-In](https://www.linkedin.com/in/dscottraynsford/) | [Email](mailto:dscottraynsford@outlook.com) | [GitHub](https://www.github.com/PlagueHO)
+
+
 ## Content
 
 - [What You Will Need](#what-you-will-need)
@@ -26,15 +33,6 @@ Estimated workshop time: 90 min
 Estimated Azure credit usage: USD 3.00 (as long as you delete
 the infrastructure straight after completion of the workshop)
 
-## What You Will Need
-
-To complete this workshop you'll need the following:
-
-- A **Microsoft Azure Account**.
-  You can sign up for a free trial [here](https://azure.microsoft.com/en-us/free/).
-- A computer running **Windows**, **OSX** or **Linux** (desktop OS)
-  with an **up-to-date version** of either Chrome, Firefox, Edge or Opera.
-
 ## Prerequisite Knowledge
 
 - Basic knowledge of Compute and Virutalization (Hyper-V, VMWare, Cloud compute)
@@ -49,6 +47,15 @@ You'll learn the basics in the following skills:
 - Use the Azure CLI (`az`) to create and delete an Azure Container Service.
 - Use the Kubernetes tools (`kubectl`) to deploy and manage highly available
   container applications.
+
+## What You Will Need
+
+To complete this workshop you'll need the following:
+
+- A **Microsoft Azure Account**.
+  You can sign up for a free trial [here](https://azure.microsoft.com/en-us/free/).
+- A computer running **Windows**, **OSX** or **Linux** (desktop OS)
+  with an **up-to-date version** of either Chrome, Firefox, Edge or Opera.
 
 ## Part 1 - Opening a Cloud Shell
 
@@ -102,11 +109,11 @@ able to use to access your containers and manage your cluster.
    letters and numbers and be globally unique because it will be used for
   the public URLs of your Kubernetes cluster.
 
-1. Run this command in Cloud Shell, but change `dsracs` to the **name** that
-   you specified above.
+1. Run this command in Cloud Shell, but change `<set me please>` to the
+   **name** that you specified above.
 
    ```bash
-   name="dansacs"
+   name="<set me please>"
    ```
 
    **Important: Please note this value and command down, because if your Cloud
@@ -180,6 +187,31 @@ manually, but the `Azure CLI` in Cloud Shell provides a handy way to do this for
    ```
 
 ## Part 4 - Deploy your First Application
+
+We are going to start by deploying a simple two-tier voting web application:
+
+![Your First Kubernetes App](images/firstdemoapplication.png "Your First Kubernetes App")
+
+This application will contain two _Deployments_:
+
+- **azure-vote-front** which will run a one or more _Pods_ hosting the
+  web application containers. This will run on Port 80. A load balancing
+  _Service_ will be configured to provide external access to the _Pods_.
+- **azure-vote-back** which will run a single Redis cache container. This
+  provides a cache so that the `azure-vote-front` end can share state data.
+  This will be exposed on Port 6379 and will only be able to be accessed
+  by the `azure-vote-front` _Pods_.
+
+![Voting Web Application](images/ourdeployedapplication.png "Voting Web Application")
+
+We will deploy this application by downloading the _Deployment_ file and
+applying to the cluster. This will start the cluster automatically deploying
+the application by downloading container images from the internet (Docker Hub)
+and creating containers from them.
+
+> Note: We could use a private container registry like Azure Container Registry
+> to pull the container images from if we had private container images we had
+> created.
 
 1. Download a Kubernetes _Deployment_ file for the demo app to your Cloud Shell:
 
@@ -350,7 +382,14 @@ at all. This is the power of Kubernetes.
 1. Press <kbd>:</kbd> and then press <kbd>q</kbd> and then <kbd>enter</kbd>
    to quit VIM.
 
-   The changes to your Deployment will now be applied. A new version of
+> Alternately, if you get stuck with the VIM part, you can use this
+> simple command to set the image that the `front-vote-front` deployment
+> should run by executing this command in the Cloud Shell:
+> ```bash
+> kubectl set image deployment azure-vote-front azure-vote-front=microsoft/azure-vote-front:v2
+> ```
+
+   The changes to your Deployment will now be applied. A n  ew version of
    the container image will be downloaded and new containers deployed using
    it. As each running container is deployed the old version will be
    terminated.
@@ -374,6 +413,13 @@ at all. This is the power of Kubernetes.
    running:
 
    ![First Demo V2 Running](images/firstdemoapplicationv2.png "First Demo V2 Running")
+
+1. You can redeploy the previous version image by running this
+   command in the Cloud Shell:
+
+   ```bash
+   kubectl set image deployment azure-vote-front azure-vote-front=microsoft/azure-vote-front:v1
+   ```
 
 ## Part 7 - When Disaster Strikes
 
@@ -479,3 +525,13 @@ completely delete the cluster. You will still pay for some components._
 
 Everything will now be cleaned up and deleted and you won't be paying to run
 an ACS Kubernetes cluster.
+
+![Congratulations](images/congratulations.png "Congratulations")
+
+**Well done!**
+You have taken your first steps into the amazingly powerful world of
+Containers, Kubernetes and Azure Container Service. This technology is
+increadibly powerful and can allow your applications to run virtually
+anywhere and they will always run the same way.
+
+Thank you!
