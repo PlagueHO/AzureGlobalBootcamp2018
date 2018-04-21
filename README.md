@@ -109,6 +109,23 @@ able to use to access your containers and manage your cluster.
    letters and numbers and be globally unique because it will be used for
   the public URLs of your Kubernetes cluster.
 
+1. Depending on your type of subscription (Free, Azure Pass etc.) you may
+   have to register the required resource providers. This is because by
+   default many resource providers (types of resource providers) are not
+   registered by default.
+
+   This only needs to be done once for a subscription. To do this, run
+   the following commands in Cloud Shell:
+
+   ```bash
+   az provider register --namespace Microsoft.Network
+   az provider register --namespace Microsoft.Compute
+   az provider register --namespace Microsoft.Storage
+   az provider register --namespace Microsoft.ContainerService --wait
+   ```
+
+   ![Register Providers](images/registerproviders.png "Register Providers")
+
 1. Run this command in Cloud Shell, but change `<set me please>` to the
    **name** that you specified above.
 
